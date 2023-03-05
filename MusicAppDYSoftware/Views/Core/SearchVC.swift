@@ -11,8 +11,9 @@ class SearchVC: UIViewController {
 
     var isFiltered : Bool = false
     var viewModel : SearchViewModel?
-    var contentItems : [Result] = []
-    var filteredContentItems : [Result] = []
+    var offset : Int = 2
+    var contentItems : [ItemResult] = []
+    var filteredContentItems : [ItemResult] = []
     
     
     var contentTable : UITableView = {
@@ -26,22 +27,32 @@ class SearchVC: UIViewController {
         return segCtrl
     }()
     
+    var searchBox : UISearchBar = {
+        let searchField = UISearchBar(frame: CGRect(x: 40, y: 80, width: Int(deviceWidth * 0.8), height: 30))
+        searchField.layer.borderWidth = 0
+        return searchField
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         viewModel = SearchViewModel(vc: self)
-        view.addSubViews([contentTable,segmentedControl])
-       
+        
+        view.addSubViews([contentTable,segmentedControl,searchBox])
         configureTable()
+        configureSearchBar()
+        configureSegmentedControl()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name("datasFetched"), object: nil)
         
-        //
-        let request = NSMutableURLRequest(url: URL(string: baseUrl)! , cachePolicy: .useProtocolCachePolicy , timeoutInterval: 10.0)
         
-        //
-        viewModel?.fetchData(request: request as URLRequest , expectingType: Items.self)
+        let request = createRequest(type: .movie)
         
+        viewModel?.fetchData(request: request as URLRequest, expectingType: MovieItem.self)
+        let detailsVC = DetailsVC()
+        navigationController?.pushViewController(detailsVC, animated: true)
     }
 }
 

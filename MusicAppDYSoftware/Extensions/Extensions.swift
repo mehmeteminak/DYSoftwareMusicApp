@@ -8,38 +8,6 @@
 import Foundation
 import UIKit
 
-// This extension consist of operations about TableViewController
-extension SearchVC : UITableViewDelegate , UITableViewDataSource {
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return deviceHeight * 0.2
-    }
-    
-    
-    
-    
-    
-    func configureTable(){
-        contentTable.delegate = self
-        contentTable.dataSource = self
-        let nib = UINib(nibName: "ItemCell", bundle: nil)
-        contentTable.register(nib, forCellReuseIdentifier: "contentCell")
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = contentTable.dequeueReusableCell(withIdentifier: "contentCell", for: indexPath) as! ItemCell
-        cell.cellImage.image = UIImage(systemName: "person.circle")
-        cell.cellTexts.text = "\(contentItems[indexPath.row].shortDescription) \n \(contentItems[indexPath.row].hasITunesExtras) \(contentItems[indexPath.row].longDescription)"
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contentItems.count
-    }
-    
-    
-}
 
 
 extension UIViewController {
@@ -65,20 +33,32 @@ extension UIViewController {
     }
 }
 
-
-
-extension SearchVC {
-    // This function will be executed by SearchVC when the datas are fetched
-    @objc func updateUI(){
-        self.viewModel!.updateUI()
-    }
-}
-
 extension UIView {
     func addSubViews(_ views : [UIView]){
         views.forEach { view in
             self.addSubview(view)
         }
+    }
+}
+
+
+
+extension UIImage {
+    static func fetchFromInternet(urlString : String , completionHandler : @escaping (UIImage?) -> Void){
+        
+        let session = URLSession.shared
+        session.dataTask(with: URL(string: urlString)!) { data, _, error in
+            if error != nil {
+                print(error!.localizedDescription)
+                completionHandler(nil)
+                return
+            }
+            if let data = data  {
+                let image = UIImage(data: data)
+                completionHandler(image)
+            }
+        }.resume()
+        
     }
 }
 

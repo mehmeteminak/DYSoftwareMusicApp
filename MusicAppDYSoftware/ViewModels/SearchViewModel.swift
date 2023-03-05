@@ -11,26 +11,27 @@ import UIKit
 
 
 protocol SearchViewProtocol {
-    var viewController : SearchVC { get set }
+    var viewCtrl : SearchVC { get set }
 }
 
 
 struct SearchViewModel : SearchViewProtocol {
-    var viewController: SearchVC
+    var viewCtrl: SearchVC
 
     
     init(vc : SearchVC){
-        self.viewController = vc
+        self.viewCtrl = vc
     }
     
-    func fetchData<T : Codable>(request: URLRequest , expectingType : T.Type){
+    //Load more parameter is specified to the the user is wanting more data in same data category (like movie , podcast , etc.) or the user is requesting data first time
+    func fetchData<T : Item>(request: URLRequest , expectingType : T.Type , loadMore : Bool = false){
         
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, _, error in
             if error != nil {
                 
                 DispatchQueue.main.async {
-                    self.viewController.presentAlert(errTitle: "Error!", errMsg: error!.localizedDescription)
+                    self.viewCtrl.presentAlert(errTitle: "Error!", errMsg: error!.localizedDescription)
                 }
                 
             }
@@ -39,12 +40,22 @@ struct SearchViewModel : SearchViewProtocol {
             }
             
             do {
-                print(String(data: data, encoding: .utf8))
-               
+                let jsonn = try JSONSerialization.jsonObject(with: data)
+                print(jsonn)
                 let fetchedDatas = try  JSONDecoder().decode(T.self, from: data)
-                if T.self is Items.Type {
-                    self.viewController.contentItems = (fetchedDatas as! Items).results
+                
+                if loadMore {
+                    fetchedDatas.results.forEach { itemResult in
+                        viewCtrl.contentItems.append(itemResult)
+                        viewCtrl.filteredContentItems.append(itemResult)
+                    }
+                    
+                } else  {
+                    self.viewCtrl.contentItems = fetchedDatas.results
+                    self.viewCtrl.filteredContentItems = fetchedDatas.results
+                    
                 }
+                
                 NotificationCenter.default.post(name: NSNotification.Name("datasFetched"), object: nil)
                 
             }
@@ -56,11 +67,17 @@ struct SearchViewModel : SearchViewProtocol {
         task.resume()
         
     }
-    
+    // This function will be execute from SearchVC when the datas are fetched
     func updateUI(){
         
             DispatchQueue.main.async {
-                viewController.contentTable.reloadData()
+                viewCtrl.contentTable.reloadData()
             }
     }
 }
+
+
+
+
+
+
