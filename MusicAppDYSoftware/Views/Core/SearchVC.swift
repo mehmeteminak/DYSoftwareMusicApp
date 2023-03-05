@@ -51,8 +51,7 @@ class SearchVC: UIViewController {
         let request = createRequest(type: .movie)
         
         viewModel?.fetchData(request: request as URLRequest, expectingType: MovieItem.self)
-        let detailsVC = DetailsVC()
-        navigationController?.pushViewController(detailsVC, animated: true)
+       
     }
 }
 

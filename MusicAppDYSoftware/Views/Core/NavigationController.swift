@@ -13,7 +13,6 @@ class NavigationController: UINavigationController {
         super.viewDidLoad()
         
         let searchVC = SearchVC()
-        
         setViewControllers([searchVC], animated: true)
         
     }
