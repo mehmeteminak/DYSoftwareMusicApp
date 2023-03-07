@@ -6,19 +6,22 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class SearchVC: UIViewController {
 
-    var isFiltered : Bool = false
     var viewModel : SearchViewModel?
-    var offset : Int = 2
-    var contentItems : [ItemResult] = []
-    var filteredContentItems : [ItemResult] = []
     
     
     var contentTable : UITableView = {
         let table = UITableView(frame: CGRect(x: 0, y: 200, width: deviceWidth, height: deviceHeight - 200))
         return table
+    }()
+    
+    var progress : JGProgressHUD = {
+        let hud = JGProgressHUD(style: .light)
+        hud.frame = CGRect(x: deviceWidth / 2 - 100, y: deviceHeight / 2 - 100, width: 100, height: 100)
+        return hud
     }()
     
     var segmentedControl : UISegmentedControl = {
@@ -35,22 +38,25 @@ class SearchVC: UIViewController {
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         view.backgroundColor = .white
         
         viewModel = SearchViewModel(vc: self)
         
         view.addSubViews([contentTable,segmentedControl,searchBox])
-        configureTable()
-        configureSearchBar()
-        configureSegmentedControl()
+        
+        progress.show(in: view)
+        viewModel!.configureTable()
+        viewModel!.configureSearchBar()
+        viewModel!.configureSegmentedControl()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name("datasFetched"), object: nil)
         
         
-        let request = createRequest(type: .movie)
+        let request = viewModel!.createRequest(type: .movie)
         
-        viewModel?.fetchData(request: request as URLRequest, expectingType: MovieItem.self)
+        viewModel!.fetchData(request: request as URLRequest, expectingType: MovieItem.self)
        
     }
 }

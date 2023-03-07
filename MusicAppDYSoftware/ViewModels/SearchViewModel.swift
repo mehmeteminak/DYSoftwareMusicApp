@@ -15,9 +15,14 @@ protocol SearchViewProtocol {
 }
 
 
-struct SearchViewModel : SearchViewProtocol {
+class SearchViewModel : SearchViewProtocol {
+    
+    var offset : Int = 2
+
     var viewCtrl: SearchVC
 
+    var contentItems : [ItemResult] = []
+    var filteredContentItems : [ItemResult] = []
     
     init(vc : SearchVC){
         self.viewCtrl = vc
@@ -40,19 +45,19 @@ struct SearchViewModel : SearchViewProtocol {
             }
             
             do {
-                let jsonn = try JSONSerialization.jsonObject(with: data)
-                print(jsonn)
+                
                 let fetchedDatas = try  JSONDecoder().decode(T.self, from: data)
                 
                 if loadMore {
+                    
                     fetchedDatas.results.forEach { itemResult in
-                        viewCtrl.contentItems.append(itemResult)
-                        viewCtrl.filteredContentItems.append(itemResult)
+                        self.contentItems.append(itemResult)
+                        self.filteredContentItems.append(itemResult)
                     }
                     
                 } else  {
-                    self.viewCtrl.contentItems = fetchedDatas.results
-                    self.viewCtrl.filteredContentItems = fetchedDatas.results
+                    self.contentItems = fetchedDatas.results
+                    self.filteredContentItems = fetchedDatas.results
                     
                 }
                 
@@ -71,13 +76,11 @@ struct SearchViewModel : SearchViewProtocol {
     func updateUI(){
         
             DispatchQueue.main.async {
-                viewCtrl.contentTable.reloadData()
+                self.viewCtrl.progress.dismiss(animated: true)
+                self.viewCtrl.contentTable.reloadData()
             }
     }
 }
-
-
-
 
 
 
