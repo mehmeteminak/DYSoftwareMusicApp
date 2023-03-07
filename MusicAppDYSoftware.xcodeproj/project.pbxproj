@@ -36,11 +36,11 @@
 		D03D231E29B37665005A0989 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D231D29B37665005A0989 /* Extensions.swift */; };
 		D03D232329B380FF005A0989 /* EbookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D232229B380FF005A0989 /* EbookModel.swift */; };
 		D03D232529B381BE005A0989 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D232429B381BE005A0989 /* Constants.swift */; };
-		D04FEA6D29B7DFB4009ED03A /* SearchVMTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FEA6C29B7DFB4009ED03A /* SearchVMTable.swift */; };
 		D04FEA6F29B7E048009ED03A /* SearchVMSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FEA6E29B7E048009ED03A /* SearchVMSearchBar.swift */; };
 		D04FEA7129B7E099009ED03A /* SearchVMScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FEA7029B7E099009ED03A /* SearchVMScroll.swift */; };
 		D04FEA7329B7E116009ED03A /* SearchVMSegmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FEA7229B7E116009ED03A /* SearchVMSegmented.swift */; };
 		D04FEA7529B7E163009ED03A /* SearchVMNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FEA7429B7E163009ED03A /* SearchVMNetwork.swift */; };
+		D0572E0B29B7E4CE00331B59 /* SearchVMTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0572E0A29B7E4CE00331B59 /* SearchVMTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,11 +93,11 @@
 		D03D231D29B37665005A0989 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D03D232229B380FF005A0989 /* EbookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EbookModel.swift; sourceTree = "<group>"; };
 		D03D232429B381BE005A0989 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		D04FEA6C29B7DFB4009ED03A /* SearchVMTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVMTable.swift; sourceTree = "<group>"; };
 		D04FEA6E29B7E048009ED03A /* SearchVMSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVMSearchBar.swift; sourceTree = "<group>"; };
 		D04FEA7029B7E099009ED03A /* SearchVMScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVMScroll.swift; sourceTree = "<group>"; };
 		D04FEA7229B7E116009ED03A /* SearchVMSegmented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVMSegmented.swift; sourceTree = "<group>"; };
 		D04FEA7429B7E163009ED03A /* SearchVMNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVMNetwork.swift; sourceTree = "<group>"; };
+		D0572E0A29B7E4CE00331B59 /* SearchVMTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVMTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,11 +272,11 @@
 		D04FEA6A29B7DCCE009ED03A /* SearchViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				D04FEA6C29B7DFB4009ED03A /* SearchVMTable.swift */,
 				D04FEA6E29B7E048009ED03A /* SearchVMSearchBar.swift */,
 				D04FEA7029B7E099009ED03A /* SearchVMScroll.swift */,
 				D04FEA7229B7E116009ED03A /* SearchVMSegmented.swift */,
 				D04FEA7429B7E163009ED03A /* SearchVMNetwork.swift */,
+				D0572E0A29B7E4CE00331B59 /* SearchVMTable.swift */,
 			);
 			path = SearchViewModel;
 			sourceTree = "<group>";
@@ -436,6 +436,7 @@
 				D03D22E929B37361005A0989 /* SearchVC.swift in Sources */,
 				D02B264C29B54BA300839CDD /* TableExtensions.swift in Sources */,
 				D02B264E29B54BDA00839CDD /* UpdateUIExtension.swift in Sources */,
+				D0572E0B29B7E4CE00331B59 /* SearchVMTable.swift in Sources */,
 				D04FEA7529B7E163009ED03A /* SearchVMNetwork.swift in Sources */,
 				D03D231E29B37665005A0989 /* Extensions.swift in Sources */,
 				D02B264329B4CAED00839CDD /* ModelProtocol.swift in Sources */,
@@ -448,7 +449,6 @@
 				D02DE0BA29B40D86007DA88E /* NavigationController.swift in Sources */,
 				D02B264729B4DB0B00839CDD /* MovieModel.swift in Sources */,
 				D02B265029B54C0800839CDD /* SearchBarExtensions.swift in Sources */,
-				D04FEA6D29B7DFB4009ED03A /* SearchVMTable.swift in Sources */,
 				D02DE0C129B40ED5007DA88E /* ItemCell.swift in Sources */,
 				D03D22E729B37361005A0989 /* SceneDelegate.swift in Sources */,
 				D03D232529B381BE005A0989 /* Constants.swift in Sources */,
